@@ -7,6 +7,8 @@ Front <--Rest api--> backend api serve(java) <---Restapi---> main server
 
 프론트에서 API 콜 하면 API 서버를 통해 데이터가 전송이 된다.
 
+프론트엔드에서 해당 api 콜해서 쓰는방식
+
 1. 백엔드 아키텍처 -> api 서버 형태의 서버, 서버를 활용해서 인터페이스가 챗봇, 웹 등 프론트랑 백엔드 서버를 잘 구분지어서 View부분이 달라져도 할 수 있게 구분하기
 
 재사용성 높은 Api 서버 만드는게 주가 된다. 
