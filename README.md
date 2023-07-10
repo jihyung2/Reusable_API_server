@@ -6,6 +6,12 @@
 2. service: controller의 호출에 따라 사용자의 요구사항을 처리, DB의 정보 등 필요에 따라 repository에 요청
 3. repository: 데이터베이스 관련 처리 담당
 
+어노테이션
+간단하게 @를 시작으로 구성된 노란색 코드 부분이다.
+어노테이션은 컴파일러에 문법 에러를 체크하며 빌드 또는 배치 시 코드를 자동으로 생성할 수 있도록 정보를 제공한다.
+@RestController: @Controller와 @ResponseBody가 합쳐진 어노테이션으로 주 용도는 Json 형태로 객체 데이터를 반환하는 것이다.
+@GetMapping(): API의 메서드 지정으로 GET 방식의 API를 지정하는 방식이다.
+
 # 위성, 캡스톤2, 개인 프로젝트 예약 챗봇에 공용으로 사용될 재사용성 Api 서버
   
 Front <--Rest api--> backend api serve(java) <---Restapi---> main server
@@ -52,6 +58,9 @@ server.port=8080
 
 application.properties 파일에서 IP 주소와 포트 번호를 설정하면 스프링 부트 애플리케이션에서 자동으로 해당 주소와 포트에 연결됩니다. 이는 스프링 부트의 내장 웹 서버가 해당 설정을 인식하고 설정된 IP 주소와 포트 번호로 바인딩되기 때문입니다.
 
+4. 텔레그램(front) -> Reusable API Server -> Backend Server
+보낼때는 get 요청으로 보내고 받을 때는 json 형식으로 받아서 출력
+
 ## 작동 방식
 
 1. @GetMapping("/getData") 메서드는 /api/getData 경로로 들어오는 GET 요청을 처리합니다.
@@ -69,6 +78,14 @@ webClient.get().uri(backendUrl)를 호출하여 백엔드 서버로 GET 요청�
 
 ## 에러
 1. 순환 참조 에러가 발생했음 
+2. 종속성 누락으로 인한 MacOS오류
+3. json 출력시 에러
 
 ## 해결방법
 1. @bean을 제거하고 그 문장을 합쳐서 해결함
+2. macos 사용시 native Dns 설정이 필요함 
+implementation("io.netty:netty-resolver-dns-native-macos:4.1.79.Final:osx-aarch_64")
+3. response.json()['query'] 이런 형식으로 출력해야함
+
+## 테스트 1 
+기존 챗봇에서 사용하던 파이썬에 붙여보기

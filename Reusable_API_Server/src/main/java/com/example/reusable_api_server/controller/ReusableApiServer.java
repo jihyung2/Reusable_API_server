@@ -16,10 +16,17 @@ public class ReusableApiServer {
 
     @GetMapping("/getData") //GET 요청에 대한 핸들러 메서드입니다. /api/getData 경로로 들어오는 GET 요청을 처리합니다.
     public Mono<String> getDataFromBackend() { //리액티브 프로그래밍을 위한 Mono 클래스로, 비동기적으로 처리되는 문자열을 나타냅니다.
-        String backendUrl = "http://127.0.0.1/api/data";
+        String backendUrl = "http://127.0.0.1:8070/testdata";
 
         //스프링 5부터 도입된 비동기 HTTP 통신을 위한 클라이언트입니다. 다양한 HTTP 요청을 보내고 응답을 받을 수 있습니다.
         WebClient webClient = WebClient.create(); //WebClient 인스턴스를 생성하는 메서드입니다.
+
+        webClient.get()
+                .uri(backendUrl)
+                .retrieve()
+                .bodyToMono(String.class)
+                .subscribe(result -> {System.out.println(result);
+                });
 
         return webClient.get()
                 .uri(backendUrl)
