@@ -80,12 +80,23 @@ webClient.get().uri(backendUrl)를 호출하여 백엔드 서버로 GET 요청�
 1. 순환 참조 에러가 발생했음 
 2. 종속성 누락으로 인한 MacOS오류
 3. json 출력시 에러
+4. 하드코딩을 막기위해 자바 프레임워크인 스프링부트에서 제공하는 프로퍼티 파일에 url을 넣고 출력하는 과정에서 변수값 에러가 발생
+
 
 ## 해결방법
 1. @bean을 제거하고 그 문장을 합쳐서 해결함
 2. macos 사용시 native Dns 설정이 필요함 
 implementation("io.netty:netty-resolver-dns-native-macos:4.1.79.Final:osx-aarch_64")
 3. response.json()['query'] 이런 형식으로 출력해야함
+4. 기본 url만 출력받고 변수는 그후에 출력하여 해결
+
+application.properties
+api.url1: http://127.0.0.1:8070/
+
+API server
+@Value("${api.url1}")
+private String apiUrl;
+
 
 ## 테스트 1 
 기존 챗봇에서 사용하던 파이썬에 붙여보기

@@ -1,5 +1,6 @@
 package com.example.reusable_api_server.controller;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.web.bind.annotation.*;
@@ -11,6 +12,10 @@ import reactor.core.publisher.Mono;
 @RestController //RESTful API를 처리하는 컨트롤러 클래스임을 나타내는 어노테이션입니다. 해당 클래스의 메서드들은 API 엔드포인트로 사용됩니다.
 @RequestMapping("/api") // /api 경로로 시작하는 모든 요청에 대해 이 컨트롤러가 처리한다고 지정합니다.
 public class ReusableApiServer {
+
+    @Value("${api.url1}")
+    private String apiUrl;
+
 
     @GetMapping("/getData") //GET 요청에 대한 핸들러 메서드입니다. /api/getData 경로로 들어오는 GET 요청을 처리합니다.
     public Mono<String> getDataFromBackend() { //리액티브 프로그래밍을 위한 Mono 클래스로, 비동기적으로 처리되는 문자열을 나타냅니다.
@@ -37,7 +42,7 @@ public class ReusableApiServer {
             System.out.println("성공입니다.");
         }
 
-        String backendUrl = "http://127.0.0.1:8070/"+type;
+        String backendUrl = apiUrl+type;
         //스프링 5부터 도입된 비동기 HTTP 통신을 위한 클라이언트입니다. 다양한 HTTP 요청을 보내고 응답을 받을 수 있습니다.
         WebClient webClient = WebClient.create(); //WebClient 인스턴스를 생성하는 메서드입니다.
 
