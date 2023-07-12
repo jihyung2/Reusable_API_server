@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
 
+import java.util.HashMap;
+
 //재사용성이 높은 API 서버 만들기
 @SpringBootApplication //스프링 부트 애플리케이션임을 나타내는 어노테이션입니다. 스프링 부트의 자동 구성과 구성 요소 검색을 활성화합니다.
 @RestController //RESTful API를 처리하는 컨트롤러 클래스임을 나타내는 어노테이션입니다. 해당 클래스의 메서드들은 API 엔드포인트로 사용됩니다.
@@ -36,13 +38,13 @@ public class ReusableApiServer {
 //    }
 
     @GetMapping("/getData/{type}") //GET 요청에 대한 핸들러 메서드입니다. /api/getData 경로로 들어오는 GET 요청을 처리합니다.
-    public Mono<String> getDataFromBackend2(@PathVariable String type, @RequestBody Object body) { //리액티브 프로그래밍을 위한 Mono 클래스로, 비동기적으로 처리되는 문자열을 나타냅니다.
+    public Mono<String> getDataFromBackend2(@PathVariable String type, @RequestBody HashMap<String, Object> map) { //리액티브 프로그래밍을 위한 Mono 클래스로, 비동기적으로 처리되는 문자열을 나타냅니다.
 
 
         if (type.equals("test")){
             System.out.println("성공입니다.");
         }
-        System.out.println(Mono.just("type"));
+        System.out.println(map.get("type"));
 
         String backendUrl = apiUrl+type;
         //스프링 5부터 도입된 비동기 HTTP 통신을 위한 클라이언트입니다. 다양한 HTTP 요청을 보내고 응답을 받을 수 있습니다.

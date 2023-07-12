@@ -61,6 +61,12 @@ application.properties 파일에서 IP 주소와 포트 번호를 설정하면 �
 4. 텔레그램(front) -> Reusable API Server -> Backend Server
 보낼때는 get 요청으로 보내고 받을 때는 json 형식으로 받아서 출력
 
+5. 프론트 서버에서 받아온 API콜의 데이터를 자바의 API 서버로 전송할 때 해시 맵 방식을 사용하는데
+해시맵이란 딕셔너리 개념을 구현한 클래스중 하나로, 키 와 값의 쌍으로 이루어진 데이터를 저장하고, 효율적인 검색과 접근을 제공함, 파이썬에서는 dict, 자바는 Hashmap이라고 생각하면 편함
+
+@RequestBody HashMap<String, Object> map
+map.get("type")
+
 ## 작동 방식
 
 1. @GetMapping("/getData") 메서드는 /api/getData 경로로 들어오는 GET 요청을 처리합니다.
