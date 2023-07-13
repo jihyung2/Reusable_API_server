@@ -1,7 +1,7 @@
 # Reusable_API_server
 간단한 REST API 서버 만들기 (스프링부트) https://velog.io/@tjdals9638/Spring-boot%EB%A1%9C-Rest-API-%EB%A7%8C%EB%93%A4%EA%B8%B0
 
-서버 처리 과정의 분리
+서버 처리 과정의 분리 - 텔레그렘에 붙인다고 생각했을경우 service파트와 repository파트는 없음
 1. controller: 클라이언트 요청을 받고 서비스에 처리를 요청, 이후 클라이언트에게 응답
 2. service: controller의 호출에 따라 사용자의 요구사항을 처리, DB의 정보 등 필요에 따라 repository에 요청
 3. repository: 데이터베이스 관련 처리 담당
@@ -67,6 +67,12 @@ application.properties 파일에서 IP 주소와 포트 번호를 설정하면 �
 @RequestBody HashMap<String, Object> map
 map.get("type")
 
+6. URL 함수자체에 변수를 줘서 입력할 때는 이런방식으로 사용한다.
+@GetMapping(/getData/{type}) 
+public Mono<String> getDataFromBackend2(@PathVariable String type, @RequestBody HashMap<String, Object> map)
+
+
+
 ## 작동 방식
 
 1. @GetMapping("/getData") 메서드는 /api/getData 경로로 들어오는 GET 요청을 처리합니다.
@@ -78,6 +84,7 @@ webClient.get().uri(backendUrl)를 호출하여 백엔드 서버로 GET 요청�
 반환된 Mono<String>은 비동기적으로 응답을 받을 수 있는 객체입니다.
 4. 최종적으로 Mono<String>을 반환합니다.
 프론트로는 이 Mono<String> 객체를 비동기적으로 받아 처리할 수 있습니다.
+5. URL에 변수를 붙여서 하기보단, 보내는 data의 type값을 붙여서 보내면, 그 값을 중간 api서버가 읽어들여 url 붙여서 기능에 맞는 값을 출력하려고 함
 
 결과적으로, 프론트에서 API 서버의 /api/getData 엔드포인트에 GET 요청을 보내면, API 서버는 백엔드 서버에 해당 데이터를 요청하고 응답을 받습니다. 그리고 해당 응답은 Mono<String> 형태로 프론트로 반환됩니다. 프론트는 이 Mono<String> 객체를 비동기적으로 받아서 원하는 방식으로 처리할 수 있습니다.
 
@@ -109,7 +116,9 @@ private String apiUrl;
 
 
 ## 아이디어 
+7/13
 어떤식으로 하면 범용적으로 사용할 수 있을까
 일단 기존의 url 을 코드에 넣지 않고 프로퍼티에 넣어서 유지보수를 용이하게 가져가고,
 입력을 받을때 중간 api 서버에서 입력받은 내용 별로 코드를 짜면 결국 의존성이 높아지기때문에
 입력은 하나로 받고 출력을 여러개로 가는게 맞지 않나 싶음 대신 보내는 api콜에 type을 담아서 보내는건 어떠한가 싶다 일단은
+
