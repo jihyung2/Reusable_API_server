@@ -202,7 +202,6 @@ Front <--Rest api--> backend api serve(java) <---Restapi---> main server
 
 
 GET, POST 방식을 둘다 사용한 이유로는 WebClient를 사용하여 JSON 형태의 데이터를 GET 요청으로 보내는 방식은 일반적으로 지원되지 않습니다. 
-
-파이썬에서 자바로 보내는건 get으로 json을 보낼 수 있지만, 자바에선 불가능한 것으로 보임
+GET 요청으로 JSON 데이터를 직접 전송하는 것은 일반적으로 권장되지 않습니다. 
 
 **백엔드 서버에 코드자체를 다 넣지 않고 파일을 여러개로 분산해서 개발하면 좋을듯
