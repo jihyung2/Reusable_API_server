@@ -12,6 +12,35 @@
 @RestController: @Controller와 @ResponseBody가 합쳐진 어노테이션으로 주 용도는 Json 형태로 객체 데이터를 반환하는 것이다.
 @GetMapping(): API의 메서드 지정으로 GET 방식의 API를 지정하는 방식이다.
 
+GET:
+
+데이터 전송 방식: URL의 쿼리 파라미터에 데이터를 포함시켜 전송합니다.
+데이터 노출: URL에 데이터가 노출되므로 보안에 취약합니다.
+데이터 크기 제한: URL의 길이 제한으로 인해 전송할 수 있는 데이터의 크기에 제약이 있습니다.
+캐싱 가능: 동일한 GET 요청은 캐시를 활용하여 이전에 가져온 응답을 재사용할 수 있습니다.
+멱등성: 동일한 GET 요청을 여러 번 보내더라도 항상 동일한 결과를 반환해야 합니다.
+주로 데이터 조회, 검색 등 데이터를 요청하는 용도로 사용됩니다.
+
+POST:
+
+데이터 전송 방식: 요청 본문에 데이터를 담아 전송합니다.
+데이터 노출: 요청 본문에 데이터를 담아 전송하므로 URL에 데이터가 노출되지 않습니다.
+데이터 크기 제한: 일반적으로 크기 제한이 없으며, 요청 본문에 다양한 타입의 데이터를 담아 전송할 수 있습니다.
+캐싱 어려움: POST 요청은 캐싱을 어렵게 만들기 때문에 일반적으로 캐시되지 않습니다.
+멱등성: 동일한 POST 요청을 여러 번 보내면 서버에서는 동일한 동작을 반복 수행할 수 있습니다.
+주로 데이터 생성, 수정, 삭제 등 서버의 상태 변경을 요청하는 용도로 사용됩니다.
+
+
+Get 방식
+    서버로부터 리소스를 요청할 때 사용되는 요청 방식입니다. GET요청은 주로 데이터 조회나 검색 등에 사용되며, 데이터를 요청 URL의 쿼리 파라미터에 포함시켜 전송합니다.
+    GET 요청은 URL에 데이터가 노출되므로 보안에 취약할 수 있고, 데이터 전송에 제약이 있을 수 있습니다. 
+
+Post 방식
+    프론트엔드에서 데이터를 백엔드로 전송하고자 할 때, 일반적으로는 POST요청을 사용합니다.
+    POST요청은 클라이언트가 서버에 데이터를 제출하기 위해 사용되며, 요청 본문에 데이터를 담아 서버로 전송합니다. 데이터의 크기나 형식에 제약이 없고, 보안에 더 적합합니다.
+
+GET은 데이터를 요청하는 용도로 주로 사용되고, POST는 데이터를 서버에 전송하여 처리를 요청하는 용도로 주로 사용됩니다. 
+
 # 위성, 캡스톤2, 개인 프로젝트 예약 챗봇에 공용으로 사용될 재사용성 Api 서버
   
 Front <--Rest api--> backend api serve(java) <---Restapi---> main server
@@ -71,7 +100,25 @@ map.get("type")
 @GetMapping(/getData/{type}) 
 public Mono<String> getDataFromBackend2(@PathVariable String type, @RequestBody HashMap<String, Object> map)
 
+7-1. 프론트에서 받은 데이터를 백엔드 서버로 보내는 방법 /GET
+        webClient.get()
+                .uri(uriBuilder -> uriBuilder.path(backendUrl) 
+                        .queryParam("type", datatype)
+                        .build())
+                .retrieve()
+                .bodyToMono(String.class)
+                .subscribe(result -> {System.out.println(result);
+                });
+uriBuilder를 활용해서 url값에 query파라미터를 넣는다.
 
+7-2. 프론트에서 받은 데이터를 백엔드 서버로 보내는 방법 /POST
+        webClient.post()
+                .uri(backendUrl)
+                .bodyValue(map)
+                .retrieve()
+                .bodyToMono(String.class);
+
+    백엔드 서버에선 request.json.get('type')로 받는다.
 
 ## 작동 방식
 
