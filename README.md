@@ -1,4 +1,11 @@
 # Reusable_API_server
+
+재사용성 높은 rest api 제작기
+룰 베이스로 제작
+
+
+
+------------이전내용-------------
 간단한 REST API 서버 만들기 (스프링부트) https://velog.io/@tjdals9638/Spring-boot%EB%A1%9C-Rest-API-%EB%A7%8C%EB%93%A4%EA%B8%B0
 
 서버 처리 과정의 분리 - 텔레그렘에 붙인다고 생각했을경우 service파트와 repository파트는 없음
