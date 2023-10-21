@@ -1,0 +1,36 @@
+순서가 있는 목록형(List) [ArrayList, LinkedList]
+
+순서가 중요하지 않은 셋형(Set) [HashSet, TreeSet, LinkedHashSet]
+
+먼저 들어온 것이 먼저 나가는 큐형(Queue) [LinkedList, PriorityQueue]
+
+키-값(key-value)으로 저장되는 맵형(Map)(딕셔너리) [HashMap, TreeMap, LinkedHashMap
+
+List 인터페이스 중 ArrayList, LinkedList가 많이 사용된다.
+
+Map 인터페이스 중에서 HashMap, Hashtable, TreeMap을 많이 사용한다.
+
+
+배열(Array) - 정해진 공간이 있고, 그 모든 곳의 식별자(인덱스)가 존재, ex) str[i]
+           - 객체 생성시 크기 할당 필수 ex) char[] c = new char[3]
+
+
+
+리스트(List) - 식별자(인덱스)가 없음, 앞의 요소가 삭제되면 새로 추가되는 요소가 그 공간에 저장 가능
+            - 크기 할당 필요 X ex) List<Integer> list = new ArrayList<>();
+                                 list.add(1);
+                                 list.add(2); 객체 타입에 상관없이 넣을 수 있음
+
+
+배열처럼 목록을 처리하기 위한 List의 대표적인 클래스로는 ArrayList와 LinkedList가 있으며, 보통은 ArrayList를 많이 사용한다.
+List처럼 목록을 처리하기는 하지만, 데이터의 중복이 없고, 순서가 필요 없는 Set의 대표적인 클래스는 HashSet, TreeSet, LinkedHashSet이 있다.
+
+데이터가 들어온 순서대로 처리하기 위해서 사용하는 Queue의 대표적인 클래스는 LinkedList와 PriorityQueue 등이 있으며, LinkedList는 List에도 속하고 Queue에도 속하는 특이한 클래스이다.
+
+Map의 대표적인 클래스에는 HashMap, TreeMap, LinkedHashiMap이 있으며, 사용 용도에 따라 다르겠지만, 대부분 HashMap을 많이 사용한다. Map의 "키"목록은 keySet()메소드를 사용하면 Set 타입의 데이터를 얻을 수 있고, "값"목록은 values()메소드를 통하여 collection타입의 데이터를 얻을 수 있다.
+
+Collection의 데이터를 처리하기 위해서는 for루프를 사용할 수 있지만, iterator() 메소드를 통하여 Iterator 객체를 얻어 각 데이터를 처리할 수도 있다.
+
+ArrayList는 Array와 List의 장점을 합친 것 이다.
+
+LinkedList는 양방향 연결 리스트(Doubly Linked List)로 구현되어 있다.
